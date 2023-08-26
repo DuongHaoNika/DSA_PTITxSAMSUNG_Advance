@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+     int t;
+     cin >> t;
+     cin.ignore();
+     while (t--){
+        string a;
+        cin >> a;
+        stack <int> s;
+        for (int i = a.size()-1; i >=0; i--){
+        	int tmp=0;
+            if (isdigit(a[i])) s.push(a[i]-'0');
+            else {
+                int se = s.top(); s.pop();
+                int fi = s.top(); s.pop();
+                if ( a[i] == '+') tmp = se + fi;
+                else if (a[i] == '-') tmp = se - fi;
+                else if (a[i] == '*') tmp = se * fi;
+                else if (a[i] == '/') tmp = se / fi;
+                s.push(tmp);
+            }
+        }
+        cout << s.top() << endl;
+     }
+}

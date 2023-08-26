@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+int ut(char x){
+	if (x == '^') return 5;
+	else if (x == '*' || x == '/') return 4;
+	else if (x == '+' || x == '-') return 3;
+	return 2;
+}
+void solve(){
+	string a;
+	cin >> a;
+	stack <char> s;
+	string tmp = "";
+	for (int i = 0; i < a.size(); i++){
+		if(isalpha(a[i])) tmp+=a[i];
+		else if (a[i] == '(') s.push(a[i]);
+		else if (a[i] == ')'){
+			while (!s.empty() && s.top() != '('){
+				tmp += s.top();
+				s.pop();
+			}
+			s.pop();
+		}
+		else if (a[i] == '+' || a[i] == '-' || a[i] == '*' || a[i] == '/' || a[i] == '^'){
+			while (!s.empty() && ut(s.top()) >= ut(a[i])){
+				tmp += s.top();
+				s.pop();
+			}
+			s.push(a[i]);
+		}
+	}
+	while (!s.empty()){
+		if(s.top() != '(') tmp+=s.top();
+		s.pop();
+	}
+	cout << tmp << endl;
+}
+int main(){
+	int t;
+	cin >> t;
+	cin.ignore();
+	while (t--){
+		solve();
+	}
+}
